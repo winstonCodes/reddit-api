@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Reddit API React
 
-## Available Scripts
+### Design
+![Design preview for Desktop](./design/Width-1200px.jpg)
 
-In the project directory, you can run:
+![Design preview for Mobile](./design/Mobile.jpg)
 
-### `npm start`
+### Things to know for Implementation
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##### API JSON calls
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+**Axios** or fetch
 
-### `npm test`
+API call to Get top 6 posts urls
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+var childArray;
+fetch("https://www.reddit.com/r/askreddit/top/.json")
+.then(data=>data.json())
+.then(data => {
+	childArray = data.data.children
+})
 
-### `npm run build`
+// childArray is an array of top posts
+// useful properties: data.url and data.title
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+var postArray = [];
+for (i=0; i<3; i++){
+	postArray.push({
+    title: childArray[i].data.title,
+    url: childArray[i].data.url
+  })
+}
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+// fetch post url
+fetch(postArray[0].url+".json")
+.then(response=>response.json())
+.then(response=>console.log(response))
+// logs an array of 2 objects, index 0 being post info, index 1.data.children[i] being the post comments. The comment is nested in .data.body
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+var commentsArray = []
+fetch(postArray[0].url+".json")
+.then(response=>response.json())
+.then(response=> {
+  for(i=0; i<3; i++){
+    commentsArray.push(response[1].data.children[i].data.body)
+  }
+  })
 
-### `npm run eject`
+  // commentsArray is an array of the top [i] comments
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  // will need to be able to display sliced comment string & full comment string
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Array of API calls to top 5 comments
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### React components
 
-## Learn More
+Input
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Info square

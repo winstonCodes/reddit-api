@@ -1,0 +1,58 @@
+*
+  margin: 0
+  border: 0
+  box-sizing: border-box
+
+$color-1: #504949
+$color-2: #E4DCDC
+$color-post-title-border: #EA795A
+
+
+body
+  background-color: $color-1
+  color: $color-2
+
+header
+  width: 100%
+  h1
+    margin: 80px auto 35px 200px
+
+.search
+  width: 100%
+  form
+    margin: 0 auto 80px 330px
+
+.post-list
+  width: 100%
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-around
+
+.post-card
+  width: 400px
+  height: 450px
+  display: flex
+  flex-direction: column
+  padding: 32px 28px
+  background-color: $color-2
+  color: $color-1
+  .post-title
+    width: 337px
+    height: 112px
+    margin: 0 auto
+    border: 11px solid $color-post-title-border
+    padding: 10px 5px
+    margin-bottom: 40px
+    text-align: center
+  .post-comments
+    width: 295px
+    margin: 0 auto
+    p
+      margin-bottom: 15px
+      text-align: left
+    .read-more
+      a
+        color: #4A90E2
+        text-decoration: none
+      a:hover
+        text-decoration: underline
