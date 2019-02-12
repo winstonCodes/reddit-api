@@ -13,7 +13,6 @@ const Search = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("test")
     handleSearch(search)
     setSearch(initialInputState)
     // insert search function from props
